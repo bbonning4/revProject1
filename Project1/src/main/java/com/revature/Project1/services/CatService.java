@@ -10,7 +10,6 @@ public interface CatService
     public Cat addCat(int userId, Cat cat);
     public Cat getCat(Integer id);
     public List<Cat> getAllCats();
-    public Integer updateCat(Integer catId);
+    public Integer updateCat(Integer catId, Cat newCat);
     public Integer deleteCat(Integer catId);
-    public List<Cat> getAllCatsFromOwner(Integer ownerId);
 }

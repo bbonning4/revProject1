@@ -15,6 +15,8 @@ import java.util.Objects;
 @Table(name = "cats")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Cat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
