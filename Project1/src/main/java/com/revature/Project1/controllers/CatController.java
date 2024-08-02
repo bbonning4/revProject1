@@ -33,13 +33,37 @@ public class CatController {
     }
 
     @GetMapping("cats/{id}")
-    public ResponseEntity<String> getCat(@PathVariable int id) throws JsonProcessingException {
+    public ResponseEntity<String> getCat(@PathVariable Integer id) throws JsonProcessingException {
         Cat cat = cs.getCat(id);
-        String jsonResponse = cat != null ? mp.writeValueAsString(cat) : "";
+        String jsonResponse = cat != null ? mp.writeValueAsString(cat) : "A cat of that ID does not exist!";
         return ResponseEntity.status(200).body(jsonResponse);
     }
 
+    @DeleteMapping("/cats/{id}")
+    public ResponseEntity<String> deleteCat(@PathVariable("id") Integer id){
+        if(cs.getCat(id) != null){
+            Integer delete = cs.deleteCat(id);
+            return delete == 1
+                    ? ResponseEntity.status(200).body("Delete Successful")
+                    : ResponseEntity.status(500).body("Delete FAILED");
+        }
+        else {
+            return ResponseEntity.status(404).body("Cat does not exist!");
+        }
+    }
 
+    @PatchMapping("/cats/{id}")
+    public ResponseEntity<String> updateCat(@PathVariable("id") Integer id, @RequestBody Cat newCat){
+        if(cs.getCat(id) != null){
+            Integer update = cs.updateCat(id,newCat);
+            return update == 1
+                    ? ResponseEntity.status(200).body("Update Successful")
+                    : ResponseEntity.status(500).body("Update FAILED");
+        }
+        else {
+            return ResponseEntity.status(404).body("Cat does not exist!");
+        }
+    }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Cat> addCat(@RequestBody Cat a) {
