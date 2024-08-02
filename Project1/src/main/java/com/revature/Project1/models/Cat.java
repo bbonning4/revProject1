@@ -2,11 +2,15 @@ package com.revature.Project1.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "cats")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,13 +28,5 @@ public class Cat {
     @JoinColumn(name = "user_id", nullable = false) // ?
     private User owner;
 
-    public Cat() {
 
-    }
-    public Cat(int id, String name, String color, User owner) {
-        this.id = id;
-        this.name = name;
-        this.color = color;
-        this.owner = owner;
-    }
 }
