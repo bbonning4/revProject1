@@ -1,6 +1,8 @@
 package com.revature.Project1.controllers;
 
+import com.revature.Project1.models.Cat;
 import com.revature.Project1.models.User;
+import com.revature.Project1.services.CatService;
 import com.revature.Project1.services.UserService;
 import com.revature.Project1.util.TokenStore;
 import com.revature.Project1.util.TokenUtil;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -20,7 +23,7 @@ public class UserController {
     UserService us;
 
     @Autowired
-    public UserController(UserService us) {
+    public UserController(UserService us, CatService cs) {
         this.us = us;
     }
 
@@ -68,5 +71,17 @@ public class UserController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("isValid", isValid);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/cats")
+    public ResponseEntity<List<Cat>> getUserCats(@PathVariable int userId) {
+        List<Cat> cats = us.getUserCats(userId);
+        return new ResponseEntity<>(cats, HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = us.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

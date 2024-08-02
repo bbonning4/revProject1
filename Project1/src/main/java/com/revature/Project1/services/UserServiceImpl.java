@@ -2,6 +2,7 @@ package com.revature.Project1.services;
 
 import com.revature.Project1.models.Cat;
 import com.revature.Project1.models.User;
+import com.revature.Project1.repositories.CatRepo;
 import com.revature.Project1.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
     @Autowired
     UserRepo ur;
+    @Autowired
+    CatRepo cr;
 
     @Override
     public User signup(User u) {
@@ -26,6 +29,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<Cat> getUserCats(int user_id) {
-        return List.of();
+        return cr.findByOwnerId(user_id);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return ur.findAll();
     }
 }

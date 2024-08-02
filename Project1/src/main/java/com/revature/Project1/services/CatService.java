@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CatService
 {
-    public Cat addCat(Cat cat);
+    public Cat addCat(int userId, Cat cat);
     public Cat getCat(Integer id);
     public List<Cat> getAllCats();
     public Integer updateCat(Integer catId);

@@ -41,11 +41,12 @@ public class CatController {
 
 
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Cat> addCat(@RequestBody Cat a) {
-        a = cs.addCat(a);
+    @PostMapping("/{userId}")
+    public ResponseEntity<Cat> addCat(@PathVariable int userId, @RequestBody Cat a) {
+        a = cs.addCat(userId, a);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
+
 
 }
 

@@ -10,4 +10,5 @@ public interface UserService {
     public User signup(User u);
     public Optional<User> login(User u);
     public List<Cat> getUserCats(int user_id);
+    public List<User> getAllUsers();
 }

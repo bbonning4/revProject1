@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public interface CatRepo extends JpaRepository<Cat, Integer> {}
+public interface CatRepo extends JpaRepository<Cat, Integer> {
+    List<Cat> findByOwnerId(int ownerId);
+}
