@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CatServiceImpl implements CatService
@@ -30,7 +31,15 @@ public class CatServiceImpl implements CatService
     }
 
     @Override
-    public Integer updateCat(Integer catId) {
+    public Integer updateCat(Integer catId, Cat newCat) {
+        Optional<Cat> optionalCat = cr.findById(catId);
+        if(optionalCat.isPresent()){
+            Cat updatedCat = optionalCat.get();
+            updatedCat.setColor(newCat.getColor());
+            updatedCat.setName(newCat.getName());
+            cr.save(updatedCat);
+            return 1;
+        }
         return 0;
     }
 
@@ -43,11 +52,6 @@ public class CatServiceImpl implements CatService
             return 1;
         }
         return 0;
-    }
-
-    @Override
-    public List<Cat> getAllCatsFromOwner(Integer ownerId) {
-        return List.of();
     }
 
     @Override

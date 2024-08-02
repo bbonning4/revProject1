@@ -3,7 +3,9 @@ package com.revature.Project1.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Objects;
 
@@ -11,6 +13,8 @@ import java.util.Objects;
 @Table(name = "cats")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Cat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
