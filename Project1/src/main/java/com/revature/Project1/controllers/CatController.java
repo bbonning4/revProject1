@@ -25,21 +25,21 @@ public class CatController {
         this.mp = mp;
     }
 
-    @GetMapping("/cats")
+    @GetMapping()
     public ResponseEntity<String> getAllCats() throws JsonProcessingException {
         List<Cat> catList = cs.getAllCats();
         String jsonResponse = mp.writeValueAsString(catList);
         return ResponseEntity.status(200).body(jsonResponse);
     }
 
-    @GetMapping("cats/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<String> getCat(@PathVariable Integer id) throws JsonProcessingException {
         Cat cat = cs.getCat(id);
         String jsonResponse = cat != null ? mp.writeValueAsString(cat) : "A cat of that ID does not exist!";
         return ResponseEntity.status(200).body(jsonResponse);
     }
 
-    @DeleteMapping("/cats/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCat(@PathVariable("id") Integer id){
         if(cs.getCat(id) != null){
             Integer delete = cs.deleteCat(id);
@@ -52,7 +52,7 @@ public class CatController {
         }
     }
 
-    @PatchMapping("/cats/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<String> updateCat(@PathVariable("id") Integer id, @RequestBody Cat newCat){
         if(cs.getCat(id) != null){
             Integer update = cs.updateCat(id,newCat);
