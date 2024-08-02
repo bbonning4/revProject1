@@ -60,18 +60,11 @@ public class CatServiceImpl implements CatService
     }
 
     @Override
-    public List<Cat> getAllCatsFromOwner(Integer ownerId) {
-        return List.of();
-    }
-
-    @Override
     public Cat addCat(int userId, Cat c) {
         User u = ur.findById(userId).get();
         System.out.println(u.toString());
         c.setOwner(u);
-
         return cr.save(c);
     }
-
 
 }
