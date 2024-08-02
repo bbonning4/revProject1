@@ -1,7 +1,9 @@
 package com.revature.Project1.services;
 
+import com.revature.Project1.models.User;
 import com.revature.Project1.repositories.CatRepo;
 import com.revature.Project1.models.Cat;
+import com.revature.Project1.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ public class CatServiceImpl implements CatService
 
     @Autowired
     CatRepo cr;
+
+    @Autowired
+    UserRepo ur;
 
     public CatServiceImpl(CatRepo cr)
     {
@@ -55,8 +60,16 @@ public class CatServiceImpl implements CatService
     }
 
     @Override
-    public Cat addCat(Cat c)
-    {
+    public List<Cat> getAllCatsFromOwner(Integer ownerId) {
+        return List.of();
+    }
+
+    @Override
+    public Cat addCat(int userId, Cat c) {
+        User u = ur.findById(userId).get();
+        System.out.println(u.toString());
+        c.setOwner(u);
+
         return cr.save(c);
     }
 

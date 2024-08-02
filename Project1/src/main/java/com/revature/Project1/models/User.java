@@ -2,7 +2,9 @@ package com.revature.Project1.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,16 +30,6 @@ public class User {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Cat> cats;
-
-    public User() {
-
-    }
-    public User(int id, String username, String password, List<Cat> cats) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.cats = cats;
-    }
 
     @Override
     public String toString() {

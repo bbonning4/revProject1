@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "cats")
 @NoArgsConstructor
@@ -29,8 +31,7 @@ public class Cat {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
-    @JoinColumn(name = "user_id", nullable = false) // ?
+    @JoinColumn(name = "u_id")
     private User owner;
-
 
 }
