@@ -54,9 +54,11 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@RequestParam String username) {
+    public ResponseEntity<Map<String, String>> logout(@RequestParam String username) {
         tokenStore.removeToken(username);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "logout successful");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/validate")
