@@ -67,6 +67,7 @@ public class CatController {
 
     @PostMapping("/{userId}")
     public ResponseEntity<Cat> addCat(@PathVariable int userId, @RequestBody Cat a) {
+        // todo: check that userId is valid user
         a = cs.addCat(userId, a);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }

@@ -1,5 +1,6 @@
 package com.revature.Project1.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.revature.Project1.models.Cat;
 import com.revature.Project1.models.User;
 import com.revature.Project1.services.CatService;
@@ -36,7 +37,7 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<User> createUser(@RequestBody User u) {
         u = us.signup(u);
-        // todo: handle edge cases such as username taken
+        // todo: handle edge cases such as password length, etc.
         return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
@@ -58,6 +59,7 @@ public class UserController {
 
     @PostMapping("/logout")
     public ResponseEntity<Map<String, String>> logout(@RequestParam String username) {
+        // todo: only allow logout by the login user
         tokenStore.removeToken(username);
         Map<String, String> response = new HashMap<>();
         response.put("message", "logout successful");
@@ -74,9 +76,15 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/cats")
-    public ResponseEntity<List<Cat>> getUserCats(@PathVariable int userId) {
-        List<Cat> cats = us.getUserCats(userId);
-        return new ResponseEntity<>(cats, HttpStatus.OK);
+    public ResponseEntity<Object> getUserCats(@PathVariable int userId) {
+        // todo: only allow login User to access their cats
+        if (us.getUser(userId).isPresent()) {
+            List<Cat> cats = us.getUserCats(userId);
+            return new ResponseEntity<>(cats, HttpStatus.OK);
+        } else {
+            String errorMessage = "User with ID " + userId + " not found.";
+            return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping()

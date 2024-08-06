@@ -11,4 +11,5 @@ public interface UserService {
     public Optional<User> login(User u);
     public List<Cat> getUserCats(int user_id);
     public List<User> getAllUsers();
+    public Optional<User> getUser(int user_id);
 }
